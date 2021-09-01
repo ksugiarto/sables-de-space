@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "projects": {
+    "sand-of-code": {
+      "root": "apps/sand-of-code",
+      "sourceRoot": "apps/sand-of-code/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/sand-of-code",
+            "main": "apps/sand-of-code/src/main.ts",
+            "tsConfig": "apps/sand-of-code/tsconfig.app.json",
+            "assets": ["apps/sand-of-code/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/sand-of-code/src/environments/environment.ts",
+                  "with": "apps/sand-of-code/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "sand-of-code:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/sand-of-code/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/sand-of-code"],
+          "options": {
+            "jestConfig": "apps/sand-of-code/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/express"
+  },
+  "defaultProject": "sand-of-code"
+}
